@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datepicker Example</title>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
+    <style>
+      #datepicker {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Select Date</h1>
+    <input type="text" id="datepicker" />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+      $(function () {
+        $("#datepicker").datepicker({
+          minDate: 0, // Restrict to the current date and future dates
+          maxDate: 0, // Restrict to the current date only
+          onSelect: function (dateText, inst) {
+            $(this).val(dateText); // Optional: to ensure only current date is shown
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

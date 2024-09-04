@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 250px;
+        background: #343a40;
+        color: #fff;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .sidebar a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .sidebar a:hover {
+        background: #495057;
+        padding: 10px;
+        display: block;
+      }
+      .main-content {
+        width: 100%;
+        padding: 20px;
+        transition: margin-left 0.3s ease;
+      }
+      .navbar-toggler {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1050;
+      }
+      @media (max-width: 768px) {
+        .main-content {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h4 class="text-center">Admin Panel</h4>
+      <div class="nav flex-column">
+        <a href="#" class="nav-link" id="dashboard">Dashboard</a>
+        <a href="#" class="nav-link" id="users">Users</a>
+        <a href="#" class="nav-link" id="settings">Settings</a>
+      </div>
+    </div>
+
+    <div class="main-content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button
+          class="navbar-toggler"
+          type="button"
+          aria-controls="sidebar"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          id="toggleSidebar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+      <h1>Welcome to the Admin Panel</h1>
+      <div id="content">
+        <!-- Content will be loaded here -->
+      </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#dashboard").click(function (e) {
+          e.preventDefault();
+          $("#content").html("<h2>Dashboard Content</h2>");
+        });
+
+        $("#users").click(function (e) {
+          e.preventDefault();
+          $("#content").html("<h2>Users Content</h2>");
+        });
+
+        $("#settings").click(function (e) {
+          e.preventDefault();
+          $("#content").html("<h2>Settings Content</h2>");
+        });
+
+        $("#toggleSidebar").click(function () {
+          $(".sidebar").toggleClass("show");
+        });
+      });
+    </script>
+  </body>
+</html>

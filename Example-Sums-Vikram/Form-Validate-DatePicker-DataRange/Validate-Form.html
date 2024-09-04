@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Form-Validation Using JQuery-Link-Valid (25-06-2024) EX-2 Example--2
+    </title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#button_submit").click(function () {
+          if (validate()) {
+            alert(
+              "FORM SUBMITTED SUCCESSFULLY....THANKS FOR APPLYING ME US....."
+            );
+          }
+        });
+        $("p").click(function () {
+          alert("They clicked me successfully into there terms and conditions");
+        });
+      });
+
+      var validate = function () {
+        $("#h2_PopUp_Msg_Showing").html("");
+
+        $("#txt_first_name").val($.trim($("#txt_first_name").val()));
+        $("#txt_last_name").val($.trim($("#txt_last_name").val()));
+        $("#txt_email_id").val($.trim($("#txt_email_id").val()));
+        $("#txt_password_id").val($.trim($("#txt_password_id").val()));
+
+        if ($("#txt_first_name").val() === "") {
+          $("#h2_PopUp_Msg_Showing").html("Enter First Name....");
+          $("#txt_first_name").focus();
+          return false;
+        } else if ($("#txt_last_name").val() === "") {
+          $("#h2_PopUp_Msg_Showing").html("Enter Last Name......");
+          $("#txt_last_name").focus();
+          return false;
+        } else if ($("#txt_email_id").val() === "") {
+          $("#h2_PopUp_Msg_Showing").html("Enter Your Email ID......");
+          $("#txt_email_id").focus();
+          return false;
+        } else if (!isValidEmail($("#txt_email_id").val())) {
+          $("#h2_PopUp_Msg_Showing").html("Enter a Valid Email ID.....");
+          $("#txt_email_id").focus();
+          return false;
+        } else if ($("#txt_password_id").val() === "") {
+          $("#h2_PopUp_Msg_Showing").html("Enter Password....");
+          $("#txt_password_id").focus();
+          return false;
+        } else if ($("#txt_password_id").val().length < 6) {
+          $("#h2_PopUp_Msg_Showing").html(
+            "Enter Valid Password Here Just 6 Pasword Here...."
+          );
+          $("#txt_password_id").focus();
+          return false;
+        }
+        return true;
+      };
+
+      function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 mx-auto mt-5">
+          <h3 class="text-info text-center">
+            Form Validation Same Of Email and Password JQUERY....
+          </h3>
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">
+                Form Validation Same Of Email and Password JQUERY
+              </h4>
+            </div>
+            <div class="card-body">
+              <form action="" method="post" name="register" id="register">
+                <h2 id="h2_PopUp_Msg_Showing" class="text-danger"></h2>
+                <div class="form-group">
+                  <label for="First_Name">First Name :</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="bi bi-person"></i>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="txt_first_name"
+                      placeholder="Enter Your First Name..............."
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="Last_Name">Last Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="bi bi-person-fill"></i>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="txt_last_name"
+                      placeholder="Enter Your Last Name................."
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="Last_Name">Email ID:</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="bi bi-person-fill"></i>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="txt_email_id"
+                      placeholder="Enter Your Email ID................."
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="Last_Name">Password:</label>
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="bi bi-person-fill"></i>
+                    </div>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="txt_password_id"
+                      placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                    />
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-center mt-3">
+                  <button type="button" class="btn btn-info" id="button_submit">
+                    <i class="bi bi-box-arrow-up-right me-2"></i>REGISTER
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="mt-5" />
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-6 mx-auto text-center">
+          <h3>Alert Button in JQuery</h3>
+          <p style="cursor: pointer">Click Here....</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

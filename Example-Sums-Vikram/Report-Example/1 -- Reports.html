@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Reports-Full-Code</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
+    ></script>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        btnAdded();
+        updateMaterial();
+        removematerial();
+
+        $("#txt_items").select2({
+          placeholder: "Select Values",
+          closeOnSelect: false,
+          allowClear: true,
+          filterText: "Filter",
+          selectAllText: "Select All",
+        });
+
+        $("#btn_add").click(function () {
+          $("#view").show();
+          $("#list").hide();
+          clearForm();
+        });
+
+        $("#btn_close").click(function () {
+          $("#view").hide();
+          $("#list").show();
+        });
+
+        $('input[name="datetimes"]').daterangepicker({
+          autoUpdateInput: false,
+          opens: "left",
+          ranges: {
+            Today: [moment(), moment()],
+            Yesterday: [
+              moment().subtract(1, "days"),
+              moment().subtract(1, "days"),
+            ],
+            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+            "Last 30 Days": [moment().subtract(29, "days"), moment()],
+            "This Month": [moment().startOf("month"), moment().endOf("month")],
+            "Last Month": [
+              moment().subtract(1, "month").startOf("month"),
+              moment().subtract(1, "month").endOf("month"),
+            ],
+          },
+          locale: {
+            format: "DD/MM/YYYY",
+            cancelLabel: "Clear",
+          },
+          alwaysShowCalendars: true,
+          startDate: moment().subtract(6, "days"),
+          endDate: moment(),
+        });
+
+        $('input[name="datetimes"]').on(
+          "apply.daterangepicker",
+          function (ev, picker) {
+            $(this).val(
+              picker.startDate.format("DD/MM/YYYY") +
+                " - " +
+                picker.endDate.format("DD/MM/YYYY")
+            );
+          }
+        );
+      });
+
+      var materials = [];
+      var matid = 0;
+
+      var clearForm = function () {
+        $(".txt_error").html("");
+        $("#txt_locations").val("");
+        $("#txt_entity").val("");
+        $("#txt_items").val([]).trigger("change");
+        $("#txt_date").val("");
+        $("#txt_views").val("");
+        $("#materials_value").html(
+          '<tr><td colspan="20" style="text-align:center">...No Data Found...</td></tr>'
+        );
+      };
+
+      var clearFormMaterials = function () {
+        $("#txt_material_locations").val("");
+        $("#txt_material_entity").val("");
+        $("#txt_material_date").val("");
+        $("#txt_material_views").val("");
+        $("#txt_material_items").val("");
+        $(".btn_added").html("Add");
+        matid = 0;
+      };
+
+      var btnAdded = function () {
+        $(".btn_added").click(function () {
+          if (validate()) {
+            if (matid == 0) {
+              matid = Math.floor(Date.now() / 1000);
+              var materialData = {
+                id: matid,
+                tab_material_locations: $("#txt_material_locations").val(),
+                tab_material_entity: $("#txt_material_entity").val(),
+                tab_material_date: $("#txt_material_date").val(),
+                tab_material_views: $("#txt_material_views").val(),
+                tab_material_items: $("#txt_material_items").val(),
+              };
+              materials.push(materialData);
+            } else {
+              $.each(function (index, item) {
+                if (item.id == matid) {
+                  item.tab_material_locations = $(
+                    "#txt_material_locations"
+                  ).val();
+                  item.tab_material_entity = $("#txt_material_entity").val();
+                  item.tab_material_date = $("#txt_material_date").val();
+                  item.tab_material_views = $("#txt_material_views").val();
+                  item.tab_material_items = $("#txt_material_items").val();
+                  return;
+                }
+              });
+            }
+            renderTable();
+            clearFormMaterials();
+          }
+        });
+      };
+
+      var removematerial = function () {
+        $("body").on("click", ".btn-remove-material", function () {
+          var matid = $(this).closest("tr").data("id");
+          var index = -1;
+          $.each(materials, function (idx, item) {
+            if (item.id == matid) {
+              index = idx;
+              return;
+            }
+          });
+          if (index > -1) materials.splice(index, 1);
+          renderTable();
+        });
+      };
+
+      var updateMaterial = function () {
+        $("body").on("click", ".btn-update-material", function () {
+          matid = $(this).closest("tr").data("id");
+          $.each(materials, function (idx, item) {
+            if (item.id === matid) {
+              $("#txt_material_locations").val(item.tab_material_locations);
+              $("#txt_material_entity").val(item.tab_material_entity);
+              $("#txt_material_date").val(item.tab_material_date);
+              $("#txt_material_views").val(item.tab_material_views);
+              $("#txt_material_items").val(item.tab_material_items);
+              $(".btn_added").html("Update");
+            }
+          });
+        });
+      };
+
+      var updateSerialNumber = function () {
+        $(".material").each(function (index) {
+          $(this)
+            .find("td:eq(0)")
+            .html(index + 1);
+        });
+      };
+
+      var validate = function () {
+        $(".txt_error").html("");
+
+        var locations = $.trim($("#txt_locations").val());
+        var entity = $.trim($("#txt_entity").val());
+        var items = $.trim($("#txt_items").val());
+        var date = $.trim($("#txt_date").val());
+        var views = $.trim($("#txt_views").val());
+        var material_locations = $.trim($("#txt_material_locations").val());
+        var material_entity = $.trim($("#txt_material_entity").val());
+        var material_date = $.trim($("#txt_material_date").val());
+        var material_views = $.trim($("#txt_material_views").val());
+        var material_items = $.trim($("#txt_material_items").val());
+
+        if (locations === "") {
+          $(".txt_error").html("Select any Locations Here");
+          $("#txt_locations").focus();
+          return false;
+        }
+
+        if (entity === "") {
+          $(".txt_error").html("Select any Entity Here");
+          $("#txt_entity").focus();
+          return false;
+        }
+
+        if (items === "") {
+          $(".txt_error").html("Select Multiselect Items Here");
+          $("#txt_items").focus();
+          return false;
+        }
+
+        if (date === "") {
+          $(".txt_error").html("Select Date Range From and To");
+          $("#txt_date").focus();
+          return false;
+        }
+
+        if (views === "") {
+          $(".txt_error").html("Select Any one Views Here");
+          $("#txt_views").focus();
+          return false;
+        }
+
+        if (material_locations === "") {
+          $(".txt_error").html("Enter any Locations");
+          $("#txt_material_locations").focus();
+          return false;
+        }
+
+        if (material_entity === "") {
+          $(".txt_error").html("Enter any Entity");
+          $("#txt_material_entity").focus();
+          return false;
+        }
+
+        if (material_date === "") {
+          $(".txt_error").html("Select Date From and To");
+          $("#txt_material_date").focus();
+          return false;
+        }
+
+        if (material_views === "") {
+          $(".txt_error").html("Enter View Here");
+          $("#txt_material_views").focus();
+          return false;
+        }
+
+        if (material_items === "") {
+          $(".txt_error").html("Enter Items Here");
+          $("#txt_material_items").focus();
+          return false;
+        }
+
+        return true;
+      };
+
+      var renderTable = function () {
+        var tableBody = $("#materials_value");
+        tableBody.empty();
+
+        materials.forEach(function (item, index) {
+          var tr = '<tr class="material" data-id="' + item.id + '">';
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            index.id +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            item.tab_material_locations +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            item.tab_material_entity +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            item.tab_material_date +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            item.tab_material_views +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;">' +
+            item.tab_material_items +
+            "</td>";
+          tr +=
+            '<td style="text-align:center;vertical-align:middle;"><button type="button" class="btn-update-material btn btn-primary btn-xs">Edit</button>&nbsp;&nbsp;<button type="button" class="btn-remove-material btn btn-danger btn-xs">Remove</button></td>';
+          tr += "</tr>";
+          tableBody.append(tr);
+        });
+        updateSerialNumber();
+      };
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-dark bg-secondary navbar-expand-md">
+        <div class="container">
+          <a class="navbar-brand">Reports</a>
+
+          <button
+            type="button"
+            class="navbar-toggler"
+            data-bs-toggle="collapse"
+            data-bs-target="#NavBtn"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="NavBtn">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="#" class="nav-link active">Home</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Info</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Services</a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container mt-5" id="view" style="display: none">
+      <div class="row hide-default">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header bg-transparent">
+              <h4 class="text-center">Reports Details</h4>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered table-stripped">
+                <tr>
+                  <th colspan="4">Reports Details :</th>
+                  <p class="txt_error text-danger"></p>
+                </tr>
+                <tr>
+                  <td>Locations :</td>
+                  <td>
+                    <select id="txt_locations" class="form-select">
+                      <option value="" disabled selected>
+                        Select Your Item
+                      </option>
+                      <option value="0">Item-Name</option>
+                    </select>
+                  </td>
+                  <td>Date Range :</td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="datetimes"
+                      id="txt_date"
+                      readonly="true"
+                      placeholder="Select Date From and To"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Entity :</td>
+                  <td>
+                    <select id="txt_entity" class="form-select">
+                      <option value="" disabled selected>
+                        Select Your value
+                      </option>
+                      <option value="0">All</option>
+                      <option value="1">Store</option>
+                      <option value="2">Bakers</option>
+                      <option value="3">Sweets</option>
+                    </select>
+                  </td>
+                  <td>Views :</td>
+                  <td>
+                    <select id="txt_views" class="form-select">
+                      <option value="" disabled selected>
+                        Select Your value
+                      </option>
+                      <option value="0">Sales</option>
+                      <option value="1">Purchase</option>
+                      <option value="2">Sale vs Dock</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Items :</td>
+                  <td>
+                    <select
+                      id="txt_items"
+                      class="form-select"
+                      multiple="multiple"
+                      style="width: 100%"
+                    >
+                      <option value="0">Breads</option>
+                      <option value="1">Cakes</option>
+                      <option value="2">Shakes</option>
+                      <option value="3">Puffs</option>
+                      <option value="4">Drinks</option>
+                      <option value="5">Sweets</option>
+                      <option value="6">Biscuits</option>
+                    </select>
+                  </td>
+                  <td colspan="5" style="text-align: end">
+                    <button
+                      id="btn_search"
+                      type="button"
+                      class="btn btn-primary me-3"
+                    >
+                      Search
+                    </button>
+                    <button type="reset" class="btn btn-warning me-3">
+                      Export
+                    </button>
+                    <button type="button" class="btn btn-info me-3">
+                      Print
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                      <i class="bi bi-x-circle-fill me-2"></i>Close
+                    </button>
+                  </td>
+                </tr>
+              </table>
+
+              <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="material-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#material-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="material-tab-pane"
+                    aria-selected="true"
+                  >
+                    Materials
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="Controls-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#Controls-tab-pane"
+                    type="button"
+                    role="tab"
+                    aria-controls="Controls-tab-pane"
+                    aria-selected="false"
+                  >
+                    Controls Cost
+                  </button>
+                </li>
+              </ul>
+
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="material-tab-pane"
+                  role="tabpanel"
+                  aria-labelledby="material-tab"
+                  tabindex="0"
+                >
+                  <div class="row mt-4">
+                    <div class="col-md-2">
+                      <label for="material" class="control-label"
+                        >Locations Name :</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="material"
+                        id="txt_material_locations"
+                        data-material=""
+                        style="text-transform: capitalize"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="uom" class="control-label">Entity :</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="material"
+                        id="txt_material_entity"
+                        data-material=""
+                        style="text-transform: capitalize"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="qty" class="control-label">Date :</label>
+                      <input
+                        type="datetime-local"
+                        class="form-control"
+                        name="qty"
+                        id="txt_material_date"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="views" class="control-label">Views :</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="views"
+                        id="txt_material_views"
+                        style="text-transform: capitalize"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <label for="items" class="control-label">Items :</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="items"
+                        id="txt_material_items"
+                        style="text-transform: capitalize"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        type="button"
+                        class="btn btn-success mt-4 btn_added"
+                      >
+                        ADD
+                      </button>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-md-12">
+                      <table
+                        class="table table-striped table-bordered table-hover table-secondary"
+                      >
+                        <thead>
+                          <tr class="sticky-row text-center">
+                            <th style="width: 6%">Sno</th>
+                            <th style="width: 35%">Locations</th>
+                            <th style="width: 10%">Entity</th>
+                            <th style="width: 12%">Date</th>
+                            <th style="width: 12%">Views</th>
+                            <th style="width: 10%">items</th>
+                            <th style="width: 15%"></th>
+                          </tr>
+                        </thead>
+                        <tbody
+                          id="materials_value"
+                          style="text-transform: uppercase"
+                        ></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="Controls-tab-pane"
+                  role="tabpanel"
+                  aria-labelledby="Controls-tab"
+                  tabindex="0"
+                >
+                  <table
+                    class="table table-striped table-bordered table-hover table-info"
+                  >
+                    <thead>
+                      <tr class="sticky-row">
+                        <th style="width: 6%">Sno</th>
+                        <th style="width: 35%">Material</th>
+                        <th style="width: 10%">Control Rate</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td>DIESEL</td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="txt_blank"
+                          />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end mb-2">
+              <button type="button" class="btn btn-success me-3" id="btn_save">
+                Save
+              </button>
+              <button type="button" class="btn btn-danger me-3" id="btn_close">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5" id="list">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-3 mt-2">
+                  <h5 class="card-title">Reports :: Details</h5>
+                </div>
+                <div class="col-md-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="txt_name"
+                    placeholder="Name"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <select class="form-control col-md-1" id="filter_select_type">
+                    <option value="0" selected="selected">All</option>
+                    <option value="1">Store</option>
+                    <option value="2">Bakers</option>
+                    <option value="3">Sweets</option>
+                  </select>
+                </div>
+                <div class="col-md-3 d-flex justify-content-end">
+                  <button
+                    type="button"
+                    class="btn btn-primary me-3"
+                    id="txt_search"
+                  >
+                    <i class="bi bi-search me-2 mb-2"></i>Search
+                  </button>
+                  <button type="button" class="btn btn-info" id="btn_add">
+                    <i class="bi bi-file-plus me-2"></i>Add New
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <table
+                    class="table table-striped table-bordered table-hover table-primary"
+                  >
+                    <thead>
+                      <tr class="text-left">
+                        <th style="width: 5%">SNo</th>
+                        <th style="width: 25%">Item Name</th>
+                        <th>UOM</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>H.O</th>
+                        <th>PNS</th>
+                        <th>SUBASH</th>
+                        <th>ASBM</th>
+                        <th>KBS</th>
+                        <th>MPM</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

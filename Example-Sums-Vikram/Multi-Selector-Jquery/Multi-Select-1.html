@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select2 Filterable Multi-Select Dropdown Example</title>
+
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Include Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#mySelect').select2({
+                placeholder: 'select your choice',
+                allowClear : true,
+                closeOnSelect: false,
+                filterText: 'Filter',
+                selectAllText: 'select All'
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <h2>Select-2 Filterable Multi-Select Dropdown Example</h2>
+
+
+    <select id="mySelect" multiple="multiple" style="width: 300px;">
+        <option value="option1">JAVA 1</option>
+        <option value="option2">JAVASCRIPT 2</option>
+        <option value="option3">JQUERY 3</option>
+        <option value="option4">CSS 4</option>
+        <option value="option5">HTML 5</option>
+        <option value="option6">SQL 6</option>
+        <option value="option7">C# 7</option>
+    </select>
+</body>
+</html>

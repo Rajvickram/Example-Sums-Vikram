@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scanner Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #scannerInput {
+        width: 300px;
+        height: 40px;
+        font-size: 18px;
+        margin: 20px;
+      }
+      #output {
+        font-size: 18px;
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" id="scannerInput" placeholder="Scan or type here..." />
+    <div id="output" style="color: green"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        var scannerInput = $("#scannerInput");
+        var output = $("#output");
+
+        scannerInput.on("input", function () {
+          const scannedText = scannerInput.val();
+          output.text(`Scanned Text: ${scannedText}`);
+        });
+
+        scannerInput.on("keydown", function (event) {
+          if (event.key === "Enter") {
+            const scannedText = scannerInput.val();
+            output.text(`Scanned Text: ${scannedText}`);
+            scannerInput.val("");
+            event.preventDefault();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

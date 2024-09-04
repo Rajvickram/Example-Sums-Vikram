@@ -1,0 +1,17 @@
+Date-Picker 
+----------------
+
+1. First JQUERY-UI.MIN.CSS :--------
+----------------------------------------------------
+ANSWER :-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/themes/base/jquery-ui.min.css">
+
+
+
+
+2. SECOND JQUERY.MIN.JS :------
+---------------------------------------------------------------------------------------
+     I) ANSWER :---- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+-------------------------------------------------------------------------------------------------------------------------
+    II) ANSWER :---- <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.3/jquery-ui.min.js"></script>
+-------------------------------------------------------------------------------------------------------------------------
+

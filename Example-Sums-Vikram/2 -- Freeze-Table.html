@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>2 -- Freeze Table</title>
+
+    <style>
+        #example1-block {
+            width: 500px;
+        }
+
+        #my-table td,
+        #my-table th {
+            width: 200px;
+            min-width: 200px;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#my-table').freezeTableItems({ freezeHeader: true, freezeFirstColumn: true });
+        })
+    </script>
+</head>
+<body>
+    <h3>2 -- Freeze Table</h3>
+
+    <div id="example1-block">
+        <div class="wrapper">
+            <div class="scrollable-area">
+                <table id="my-table">
+                    <thead>
+                        <tr>
+                            <th>One</th>
+                            <th>Two</th>
+                            <th>Three</th>
+                            <th>Four</th>
+                            <th>Five</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

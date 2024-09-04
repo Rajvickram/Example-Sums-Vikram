@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>HTML-CSS-BS-JQ-JS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        .card-title{
+            color: burlywood;
+        }
+
+        .card-title:hover{
+            color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-dark bg-primary navbar-expand-md">
+            <div class="container">
+                <a href="#" class="navbar-brand"><i class="bi bi-bootstrap me-2"></i>Form-Validate</a>
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#Btn-Press">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="Btn-Press">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Contact-Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Sign-Up</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6 mx-auto my-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h4 card-title text-center">Form-Validation</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="" novalidate>
+                            <div class="form-group">
+                                <label for="user">User-Id</label>
+                                <div class="input-group">
+                                    <div class="input-group-text"><i class="bi bi-envelope"></i></div>
+                                    <input type="email" class="form-control" id="user" placeholder="User-Id" required>
+                                    <div class="valid-feedback">Looks Good</div>
+                                    <div class="invalid-feedback">Not Nice</div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="pass">Password</label>
+                                <div class="input-group">
+                                    <div class="input-group-text"><i class="bi bi-key"></i></div>
+                                    <input type="password" id="pass" class="form-control" placeholder="Password" required>
+                                    <div class="valid-feedback">Looks Nice</div>
+                                    <div class="invalid-feedback">Not Good</div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group mt-3 text-center">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        (function () {
+            window.addEventListener('load', function () {
+                let forms = document.getElementsByTagName('form');
+
+                let validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (form.checkValidity === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false)
+                })
+            })
+        })();
+    </script>
+</body>
+</html>

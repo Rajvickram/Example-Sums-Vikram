@@ -1,0 +1,102 @@
+{
+    "books": [
+        [
+            {
+                "Book_Name": "To Kill a Mockingbird",
+                "Author": "Harper Lee",
+                "Year": "1962",
+                "Price": "337"
+            },
+            {
+                "Book_Name": "1984",
+                "Author": "George Orwell",
+                "Year": "9780451524935",
+                "Price": "Science Fiction"
+            },
+            {
+                "Book_Name": "The Great Gatsby",
+                "Author": "F. Scott Fitzgerald",
+                "Year": "9780743273565",
+                "Price": "Classic"
+            },
+            {
+                "Book_Name": "Pride and Prejudice",
+                "Author": "Jane Austen",
+                "Year": "9780141439518",
+                "Price": "Romance"
+            },
+            {
+                "Book_Name": "To the Lighthouse",
+                "Author": "Virginia Woolf",
+                "Year": "9780156030471",
+                "Price": "Modernist"
+            },
+            {
+                "Book_Name": "Moby-Dick",
+                "Author": "Herman Melville",
+                "Year": "9781853260087",
+                "Price": "Adventure"
+            },
+            {
+                "Book_Name": "The Catcher in the Rye",
+                "Author": "J.D. Salinger",
+                "Year": "9780316769488",
+                "Price": "Coming-of-age"
+            },
+            {
+                "Book_Name": "Brave New World",
+                "Author": "Aldous Huxley",
+                "Year": "9780060850524",
+                "Price": "Dystopian"
+            },
+            {
+                "Book_Name": "Jane Eyre",
+                "Author": "Charlotte Bronte",
+                "Year": "9780141441146",
+                "Price": "Gothic"
+            },
+            {
+                "Book_Name": "The Lord of the Rings",
+                "Author": "J.R.R. Tolkien",
+                "Year": "9780544003415",
+                "Price": "Fantasy"
+            },
+            {
+                "Book_Name": "The Hobbit",
+                "Author": "J.R.R. Tolkien",
+                "Year": "9780261103283",
+                "Price": "Adventure"
+            },
+            {
+                "Book_Name": "Harry Potter and the Sorcerer's Stone",
+                "Author": "J.K. Rowling",
+                "Year": "9780590353427",
+                "Price": "Fantasy"
+            },
+            {
+                "Book_Name": "The Chronicles of Narnia",
+                "Author": "C.S. Lewis",
+                "Year": "9780064404990",
+                "Price": "Fantasy"
+            },
+            {
+                "Book_Name": "The Hitchhiker's Guide to the Galaxy",
+                "Author": "Douglas Adams",
+                "Year": "9780345391803",
+                "Price": "Science Fiction"
+            },
+            {
+                "Book_Name": "The Alchemist",
+                "Author": "Paulo Coelho",
+                "Year": "9780062315007",
+                "Price": "Philosophical"
+            },
+            {
+                "Book_Name": "Java Development",
+                "Author": "James Gosling",
+                "Year": "2007",
+                "Price": "750"
+            }
+        ]
+    ]
+}

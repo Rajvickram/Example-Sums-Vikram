@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JQUERY-AJAX-GETJSON-METHOD-EXAMPLE-3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+   <script>
+       $(document).ready(function () {
+           $.getJSON('6--j.json', function (data) {
+               $.each(data, function (i, info) {
+                   $('ol').append('<li>' + info.name + " " + info.age + '</li>');
+               });
+           });
+       });
+   </script>
+</head>
+<body>
+    <ol>
+        
+    </ol>
+</body>
+</html>

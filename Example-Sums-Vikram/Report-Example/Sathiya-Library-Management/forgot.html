@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Page</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#btn_register").click(function () {
+          $(".txt_error").html("");
+
+          var username = $.trim($("#txt_username").val());
+          var email = $.trim($("#txt_email").val());
+          var phone = $.trim($("#txt_phone").val());
+          var password = $.trim($("#txt_password").val());
+          var repeat_password = $.trim($("#txt_repeat_password").val());
+
+          if (username === "") {
+            $(".txt_error").html("Enter User Name");
+            $("#txt_username").focus();
+            return false;
+          }
+
+          if (email === "") {
+            $(".txt");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-6 mx-auto">
+          <div class="card bg-secondary">
+            <div class="card-header" style="background-color: cadetblue">
+              <h5 class="text-white">Register</h5>
+            </div>
+            <div class="card-body">
+              <p class="float-right">
+                Already member?
+                <a href="/Sathiya-Library-Management/library.html">Sign In</a>
+              </p>
+              <h5 class="txt_error"></h5>
+
+              <form action="#" method="post" class="mt-5">
+                <div class="form-group mt-3">
+                  <input
+                    type="text"
+                    id="txt_username"
+                    class="form-control"
+                    placeholder="UserName"
+                  />
+                </div>
+
+                <div class="form-group mt-4">
+                  <input
+                    type="email"
+                    id="txt_email"
+                    class="form-control"
+                    placeholder="You@gmail.com"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="tel"
+                    id="txt_phone"
+                    class="form-control"
+                    placeholder="+91 1234567890"
+                    maxlength="10"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="txt_password"
+                    class="form-control"
+                    placeholder="Password"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <input
+                    type="password"
+                    id="txt_repeat_password"
+                    class="form-control"
+                    placeholder="Repeat Password"
+                  />
+                </div>
+              </form>
+
+              <p>
+                By Clicking register you agree to our
+                <a href="#">terms of service</a>
+              </p>
+            </div>
+
+            <div class="card-footer" style="background-color: cadetblue">
+              <button
+                type="button"
+                class="btn btn-info w-100"
+                id="btn_register"
+              >
+                Register
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

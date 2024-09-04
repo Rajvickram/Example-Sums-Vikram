@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>AJAX-JQUERY-DUMMY-API-CONNECT</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://jsonplaceholder.typicode.com/posts",
+                dataType: "json"
+            }).done(function (data) {
+                $.each(data, function (i, p) {
+                    $('ol').append('<li>' + "ID:" + " " + p.id + " " + p.body + '</li>');
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <ol></ol>
+</body>
+</html>

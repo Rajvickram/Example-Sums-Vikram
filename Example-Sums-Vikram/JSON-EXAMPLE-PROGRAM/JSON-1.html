@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JSON Example - Program</title>
+    <script>
+        var a = {
+            name: 'Rajvickram',
+            age: 23,
+            add: function () {
+                return 5 + 5
+            },
+            details: {
+                gender: 'male',
+                phno: 7010
+            },
+            name1: ['n1', 'n2', 'n3']
+        };
+        //Converting JavaScript Object to JSON Object Method :
+        a = JSON.stringify(a);
+
+        //Converting JSON Object to JavaScript Object :
+        a = JSON.parse(a);
+
+        console.log(a.name);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

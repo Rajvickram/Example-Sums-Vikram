@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JSON-3 OBJECT</title>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                var f1 = new XMLHttpRequest();
+                f1.open('GET', 'a1.json', true);
+                f1.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        /*=> If the Two condition will TRUE then only enter into the if condition*/
+                        var f2 = JSON.parse(f1.responseText);
+                        var f3 = f2.class;
+                    };
+                };
+            });
+        });
+    </script>
+</head>
+<body>
+    <h4>1. I'm Going To Using Server;</h4>
+    <h4>2. While We using AJAX => we have to start (XAMPP);</h4>
+    <h4>3. Start => (APACHE => Server);</h4>
+    
+
+
+    <h1>Sem Result for 3RD Year for (2020 - 2021)</h1>
+    <hr />
+
+    <button id="btn">Class 1 Result</button>
+</body>
+</html>

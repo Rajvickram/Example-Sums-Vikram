@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add and Remove Class Example</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            background-color: grey;
+        }
+
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <button id="add-class">Add Highlight Class</button>
+    <button id="remove-class">Remove Highlight Class</button>
+    <button id="toggle-class">Toggle Highlight Class</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Add 'highlight' class to all elements with class 'box'
+            $('#add-class').click(function () {
+                $('.box').addClass('highlight');
+            });
+
+            // Remove 'highlight' class from all elements with class 'box'
+            $('#remove-class').click(function () {
+                $('.box').removeClass('highlight');
+            });
+
+            // Toggle 'highlight' class on all elements with class 'box'
+            $('#toggle-class').click(function () {
+                $('.box').toggleClass('highlight');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library Management System</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+      body {
+        margin-top: 20px;
+        background: #f6f9fc;
+      }
+
+      .account-block {
+        padding: 0;
+        background-image: url(https://img.freepik.com/free-photo/realistic-books-shelf-library_23-2151359528.jpg?size=626&ext=jpg&ga=GA1.1.1447158698.1723633238&semt=ais_hybrid);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        position: relative;
+      }
+
+      .account-block .account-testimonial {
+        text-align: center;
+        color: white;
+        position: absolute;
+        margin: 0 auto;
+        padding: 0 1.75rem;
+        bottom: 3rem;
+        left: 0;
+        right: 0;
+      }
+
+      .btn-theme {
+        background-color: #5369f8;
+        color: #fff;
+      }
+    </style>
+
+    <script>
+      $(document).ready(function () {
+        var clearForm = function () {
+          $(".text-error").hide();
+
+          $("#txt_email_address").val("");
+          $("#txt_password").val("");
+        };
+
+        $(".btn_login").click(function () {
+          $(".text-error").html("");
+
+          var email = $.trim($("#txt_email_address").val());
+          var pwd = $.trim($("#txt_password").val());
+
+          if (email === "") {
+            $(".text-error").html("Enter Email");
+            $("#txt_email_address").focus();
+            return false;
+          }
+
+          if (pwd === "") {
+            $(".text-error").html("Enter Password");
+            $("#txt_password").focus();
+            return false;
+          }
+
+          clearForm();
+          alert("submitted");
+          return true;
+        });
+
+        var n = 12;
+        var c = 0;
+
+        for (var i = 2; i < n; i++) {
+          if (n % i == 0) {
+            c++;
+          }
+        }
+        if (c > 0) {
+          console.log("Cleared");
+        } else {
+          console.log("Not Cleared");
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container" id="form">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="card border-0 mt-5">
+            <div class="card-body p-0">
+              <div class="row no-gutters">
+                <div class="col-lg-6">
+                  <div class="p-5">
+                    <div class="mb-5">
+                      <h3 class="h4 font-weight-bold text-theme">Login</h3>
+                      <h5 class="text-error text-danger mt-2"></h5>
+                    </div>
+
+                    <h6 class="h5 mb-0">Welcome back!</h6>
+                    <p class="text-muted mt-2 mb-5">
+                      Enter your email address and password to access Library
+                      Management.
+                    </p>
+
+                    <form>
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="txt_email_address"
+                          placeholder="@gmail.com"
+                        />
+                      </div>
+                      <div class="form-group mb-5">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="txt_password"
+                          placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
+                        />
+                      </div>
+                      <button type="button" class="btn btn-theme btn_login">
+                        Add
+                      </button>
+                      <a href="#" class="float-right text-primary mt-2"
+                        >Forgot password?</a
+                      >
+                    </form>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 d-lg-inline-block">
+                  <div class="account-block">
+                    <div class="overlay rounded-right"></div>
+                    <div class="account-testimonial">
+                      <h4 class="text-white mb-4">
+                        A Book is a Gift you can open again and again
+                      </h4>
+                      <p class="lead text-white">
+                        "Books are a uniquely portable magic."
+                      </p>
+                      <p>- Stephen King</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted text-center mt-3 mb-0">
+            Don't have an account?
+            <a href="register.html" class="text-primary ml-1" id="btn_register"
+              >register</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

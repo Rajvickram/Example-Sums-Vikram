@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Form-1-JQUERY</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btn_submit').click(function () {
+                if (validate()) {
+                    alert('Submitted Successfully');
+                }
+            })
+        })
+
+        var validate = function () {
+            $('.txt_shown_error').html('');
+
+            $('#txt_first_name').val($.trim($('#txt_first_name').val()));
+            $('#txt_last_name').val($.trim($('#txt_last_name').val()));
+            $('#txt_email_id').val($.trim($('#txt_email_id').val()));
+            $('#txt_confirm_email_id').val($.trim($('#txt_confirm_email_id').val()));
+            $('#txt_password').val($.trim($('#txt_password').val()));
+            $('#txt_confirm_password').val($.trim($('#txt_confirm_password').val()));
+            $('#txt_mobile_no').val($.trim($('#txt_mobile_no').val()));
+            $('#txt_address').val($.trim($('#txt_address').val()));
+
+            if ($('#txt_first_name').val() === '') {
+                $('.txt_shown_error').html('Please First Name Here...');
+                $('#txt_first_name').focus();
+                return false;
+            }
+
+            else if ($('#txt_last_name').val() === '') {
+                $('.txt_shown_error').html('Please Last Name Here...');
+                $('#txt_last_name').focus();
+                return false;
+            }
+
+            else if ($('#txt_email_id').val() === '') {
+                $('.txt_shown_error').html('Please Email ID Here...');
+                $('#txt_email_id').focus();
+                return false;
+            }
+
+            else if (!isValidEmail($('#txt_email_id').val())) {
+                $('.txt_shown_error').html('Please Valid Email ID Here...');
+                $('#txt_email_id').focus();
+                return false;
+            }
+
+            else if ($('#txt_confirm_email_id').val() === '') {
+                $('.txt_shown_error').html('Please Confirm Email ID Here...');
+                $('#txt_confirm_email_id').focus();
+                return false;
+            }
+
+            else if ($('#txt_email_id').val() !== $('#txt_confirm_email_id').val()) {
+                $('.txt_shown_error').html('Email IDs do not match');
+                $('#txt_confirm_email_id').focus();
+                return false;
+            }
+
+            else if ($('#txt_password').val() === '') {
+                $('.txt_shown_error').html('Please Paswword Here...');
+                $('#txt_password').focus();
+                return false;
+            }
+
+            else if (!isValidPassword($('#txt_password').val())) {
+                $('.txt_shown_error').html('Password must contain at least one uppercase letter, one number, and one special character');
+                $('#txt_password').focus();
+                return false;
+            }
+
+            else if ($('#txt_confirm_password').val() === '') {
+                $('.txt_shown_error').html('Please Confirm Paswword Here...');
+                $('#txt_confirm_password').focus();
+                return false;
+            }
+
+            else if ($('#txt_password').val() !== $('#txt_confirm_password').val()) {
+                $('.txt_shown_error').html('Passwords do not match');
+                $('#txt_confirm_password').focus();
+                return false;
+            }
+
+            else if ($('#txt_address').val() === '') {
+                $('.txt_shown_error').html('Enter Address Here');
+                $('#txt_address').focus();
+                return false;
+            }
+
+            else if ($('#txt_mobile_no').val() === '') {
+                $('.txt_shown_error').html('Enter Phone Number');
+                $('#txt_mobile_no').focus();
+                return false;
+            }
+
+            else if ($('#txt_mobile_no').val().length < 10) {
+                $('.txt_shown_error').html('Enter Correct Phone Number');
+                $('#txt_mobile_no').focus();
+                return false;
+            }
+            return true;
+        }
+
+        function isValidEmail(email) {
+            var emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailReg.test(email);
+        }
+
+        function isValidPassword(password) {
+            var upperCaseLetters = /[A-Z]/;
+            var numbers = /[0-9]/;
+            var specialChars = /[^A-Za-z0-9]/;
+
+            return (
+                upperCaseLetters.test(password) &&
+                numbers.test(password) &&
+                specialChars.test(password)
+            );
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 mt-5 mx-auto">
+                <div class="card">
+                    <div class="card-header text-center bg-transparent">
+                        <h5 class="card-title">Form Validation</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="#" class="form-horizontal" id="frm-value" name="frm-value">
+                            <h6 class="txt_shown_error text-danger"></h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="first_name">First Name:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-person"></i></div>
+                                        <input type="text" class="form-control" id="txt_first_name" placeholder="Enter First Name..." />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="last_name">Last Name:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                        <input type="text" class="form-control" id="txt_last_name" placeholder="Enter Last Name..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="email_ID">Email ID:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-envelope"></i></div>
+                                        <input type="email" class="form-control" id="txt_email_id" placeholder="Enter Email ID..." />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirm_email_ID">Confirm Email ID:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                        <input type="email" class="form-control" id="txt_confirm_email_id" placeholder="Confirm Email ID:..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="password">Password:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-key"></i></div>
+                                        <input type="password" class="form-control" id="txt_password" placeholder="Enter Password..." />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="confirm_email_ID">Confirm Password:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-key-fill"></i></div>
+                                        <input type="password" class="form-control" id="txt_confirm_password" placeholder="Confirm Password:..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="mobile_no">Mobile No:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-phone"></i></div>
+                                        <input type="tel" class="form-control" id="txt_mobile_no" placeholder="+91 1234567890" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address">Address:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-text"><i class="bi bi-key-fill"></i></div>
+                                        <input type="text" class="form-control" id="txt_address" placeholder="Address Here...." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex justify-content-end mt-3">
+                                <button type="button" class="btn btn-info me-3 text-white" id="btn_submit">Submit</button>
+                                <button type="button" class="btn btn-danger text-dark" id="btn_close">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

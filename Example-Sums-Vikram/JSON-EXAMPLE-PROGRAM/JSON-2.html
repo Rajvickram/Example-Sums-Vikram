@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JSON-2 Example Program</title>
+    <script>
+        var a = [
+            {
+                name: 'Rajvickram',
+                age: 23
+            },
+            {
+                name: 'Sathiya',    
+                age: 24
+            },
+            {
+                name: 'Raghu',
+                age: 35
+            }
+        ];
+        //a = JSON.stringify(a);
+        //a = JSON.parse(a);
+        //console.log(a[1].age);
+        //console.log(a);
+
+        //I Want to display all values in Array Method
+
+        var t1 = " ";
+        for (var i = 0; i < a.length; i++) {
+            //console.log(a[i].age);
+            t1+= "<li>"+a[i].name+"</li>";
+        }
+
+        document.getElementById('o').innerHTML=t1;
+
+    </script>
+</head>
+<body>
+    <ol id="o"></ol>
+</body>
+</html>

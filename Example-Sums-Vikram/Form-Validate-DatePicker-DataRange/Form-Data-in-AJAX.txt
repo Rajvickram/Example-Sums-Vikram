@@ -1,0 +1,8 @@
+1. What is form data in AJAX? :----
+
+Definition of jQuery Ajax formData. It can set up the key and values of the given form and sends values using the jQuery Ajax method. It is a method to provide form values like text, numbers, images, and files and upload them on the URL server
+
+
+
+
+2.

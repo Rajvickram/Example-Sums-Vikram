@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Email Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            function isValidEmail(email) {
+                return emailPattern.test(email);
+            }
+
+            $('#email_form').submit(function (event) {
+                event.preventDefault();
+
+                var email = $('#emailInput').val();
+
+                if (isValidEmail(email)) {
+                    alert('Email is Valid');
+                }
+                else {
+                    alert('Invalid email. Please enter a valid email address.')
+                }
+            });
+        });
+    </script>
+
+</head>
+<body>
+    <form id="email_form">
+        <input type="text" id="emailInput" placeholder="Enter Your Email">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

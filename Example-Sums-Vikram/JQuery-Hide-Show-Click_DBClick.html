@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JQuery Example Program</title>
+
+</head>
+<body>
+
+    <h3>Duble click Event</h3>
+    <p>First check 1st Paragraph Text</p>
+    <p>Then Go with 2nd Paragraph Text</p>
+
+
+    <button id="hide-btn">Hide</button>
+    <button id="show-btn">Show</button>
+    
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#hide-btn').click(function () {
+                $('p').hide();
+            });
+            $('#show-btn').click(function () {
+                $('p').show();
+            });
+            $('h3').dblclick(function () {
+                $(this).hide();
+            })
+        });
+    </script>
+</body>
+</html>

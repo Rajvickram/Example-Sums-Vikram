@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JQUERY-AJAX-EXAMPLE-1</title>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        ////1ST => Method 
+        //$(document).ready(function () {
+        //    $('button').load('test.html');
+        //});
+
+
+        //2ND => Method
+
+        $(document).ready(function () {
+            $('button').load('4--test.html', function (res, status, xhr) {
+                if (status == "success") {
+                    alert('success');
+                }
+                else if (status == "error") {
+                    alert('error : ' + xhr.status);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <button></button>
+</body>
+</html>

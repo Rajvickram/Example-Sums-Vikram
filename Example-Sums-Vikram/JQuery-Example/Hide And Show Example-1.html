@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Normal Example</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#btn_show').click(function () {
+                $('div').show();
+            });
+
+            $('#btn_hide').click(function () {
+                $('div').hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div style="width: 25rem; height: 15rem; border: 1px solid lightblue; margin-left: 20px;">
+        <p style="padding: 10px 30px;">First Line Paragraph</p>
+        <p style="padding: 10px 30px;">Second Line Paragraph</p>
+        <p style="padding: 10px 30px;">All the element are getting Show and Hide Function</p>
+    </div>
+    <button id="btn_show" style="margin-top: 5px; margin-left: 20px;">Show</button>
+    <button id="btn_hide" style="margin-top: 5px; margin-left: 20px;">Hide</button>
+</body>
+</html>

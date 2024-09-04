@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>AJAX EX -- PROGRAM</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#loadUsers').click(function () {
+                $.ajax({
+                    url: 'https://jsonplaceholder.typicode.com/users',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (users) {
+                        $('#userList').empty(); // Clear any previous content
+                        $.each(users, function (index, user) {
+                            // Create and append a new <li> element for each user's name
+                            $('#userList').append('<li>' + user.username + '</li>');
+                        });
+                    },
+                    error: function () {
+                        console.error('Request failed');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>User Lists</h1>
+    <button id="loadUsers">Load Users</button>
+    <ul id="userList"></ul>
+</body>
+</html>
