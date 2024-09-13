@@ -1,0 +1,221 @@
+<script>
+  var regObj = null;
+
+  $(document).ready(function () {
+    removeBtn();
+
+    $(".btn-update").click(function () {
+      if (BtnUpdateValid()) {
+        var obj_details = {
+          holiday: moment($("#txt_date").val(), "DD/MM/YYYY").format(
+            "MM/DD/YYYY"
+          ),
+          holidaytype: $("#sel_type").val(),
+          authcode: $("#txt_code").val(),
+          username: "CurrentUser",
+          details: regObj.details,
+        };
+        setHolidayRegister(obj_details);
+      }
+    });
+
+    $("#txt_date").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+    });
+
+    $("#txt_employee").autocomplete({
+      select: function (event, ui) {
+        var emp = {
+          empid: ui.item.value,
+          empname: ui.item.label,
+          section: ui.item.section,
+          status: ui.item.status,
+        };
+
+        var exists = regObj.details.some(function (item) {
+          return item.empid === emp.empid;
+        });
+
+        if (exists) {
+          showErrorInfo("Employee already Added");
+          $("#txt_employee").val("");
+        } else {
+          $("#txt_employee").val("");
+          regObj.details.unshift(emp);
+          renderTable(regObj.details);
+        }
+        return false;
+      },
+    });
+
+    $(".btn-addNew").click(function () {
+      $(".alert").hide();
+      $("#list").hide();
+      $("#view").show();
+      clearForm();
+    });
+
+    $(".btn_close").click(function () {
+      $("#list").show();
+      $("#view").hide();
+      clearForm();
+    });
+
+    $("#btn_get").on("click", function () {
+      if (requestValiDate()) {
+        var obj = {
+          holiday: moment($("#txt_date").val(), "DD/MM/YYYY").format(
+            "MM/DD/YYYY"
+          ),
+        };
+        regObj = null;
+        //$("#txt_employee").autocomplete("option", "source", []);
+        $("#requestbody").html(
+          '<tr><td colspan="10"  style="text-align:center;">... Please Wait...</td></tr>'
+        );
+        getHolidayRegister(obj);
+      }
+    });
+
+    var requestValiDate = function () {
+      $(".alert").hide();
+      $("#txt_date").val($.trim($("#txt_date").val()));
+
+      if ($("#txt_date").val() === "") {
+        showErrorInfo("Enter Date Here");
+        $("#txt_date").focus();
+        return false;
+      }
+
+      return true;
+    };
+
+    var BtnUpdateValid = function () {
+      $(".alert").hide();
+      $("#sel_type").val($.trim($("#sel_type").val()));
+      $("#txt_description").val($.trim($("#txt_description").val()));
+
+      if ($("#sel_type").val() === "0") {
+        showErrorInfo("Select Holiday Type");
+        $("#sel_type").focus();
+        return false;
+      } else if ($("#txt_description").val() === "") {
+        showErrorInfo("Enter Description Name");
+        $("#txt_description").focus();
+        return false;
+      }
+
+      return true;
+    };
+  });
+
+  var clearForm = function () {
+    regObj = null;
+    $("#txt_date").val("");
+    $("#sel_type").val("0");
+    $("#txt_description").val("");
+    renderTable();
+  };
+
+  var getHolidayRegister = function (obj) {
+    $.ajax({
+      type: "POST",
+      url: ServiceApiName + "getHolidayRegister",
+      data: JSON.stringify(obj),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (res) {
+        if (res != null) {
+          regObj = res;
+          console.log(regObj);
+          renderTable(regObj.details);
+          var source = [];
+          $.each(regObj.employees, function (index, item) {
+            var emp = {
+              label: item.empname,
+              value: item.empid,
+              section: item.section,
+              status: item.status,
+            };
+            source.push(emp);
+          });
+          $("#txt_employee").autocomplete("option", "source", source);
+        } else showErrorInfo("Please Try Again");
+      },
+      error: function (msg) {},
+      complete: function () {},
+    });
+  };
+
+  var setHolidayRegister = function (obj) {
+    $.ajax({
+      type: "POST",
+      url: ServiceApiName + "setHolidayRegister",
+      data: JSON.stringify(obj),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      success: function (op) {
+        if (op != null) {
+          if (op.regObj) {
+            clearForm();
+            showSuccessInfo(op.msg);
+          } else showErrorInfo(op.msg);
+        } else showErrorInfo("Please Try Again");
+      },
+      error: function (msg) {},
+      complete: function () {},
+    });
+  };
+
+  var removeBtn = function () {
+    $("body").on("click", ".btn-remove", function () {
+      var empid = $(this).closest("tr").data("id");
+      var index = -1;
+      $.each(regObj.details, function (idx, item) {
+        if (item.empid == empid) {
+          index = idx;
+          return;
+        }
+      });
+      if (index > -1) regObj.details.splice(index, 1);
+      renderTable(regObj.details);
+    });
+  };
+
+  var renderTable = function (obj) {
+    var tr = "";
+    $(obj).each(function (index, item) {
+      tr += '<tr class="material" data-id="' + item.empid + '">';
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;">' +
+        (index + 1) +
+        "</td>";
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;">' +
+        item.empname +
+        "</td>";
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;">' +
+        item.empid +
+        "</td>";
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;">' +
+        item.section +
+        "</td>";
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;">' +
+        item.status +
+        "</td>";
+      tr +=
+        '<td style="text-align:center;vertical-align:middle;"><button type="button" class="btn-remove btn btn-danger btn-xs">Remove</button></td>';
+      tr += "</tr>";
+    });
+    if (tr != "") $("#requestbody").html(tr);
+    else
+      $("#requestbody").html(
+        '<tr><td colspan="10"  style="text-align:center;">... No Data Found...</td></tr>'
+      );
+  };
+</script>
